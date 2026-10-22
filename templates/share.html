@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Shared file - Secure Cloud Storage{% endblock %}
+{% block content %}
+<section class="card auth-card center" id="share" data-token="{{ token }}">
+  <div class="file-badge big" id="badge">FILE</div>
+  <p class="muted" id="status">Checking link&hellip;</p>
+  <h2 id="fname" hidden></h2>
+  <p class="muted" id="fmeta" hidden></p>
+  <button type="button" class="btn primary block" id="dl" hidden>Decrypt &amp; download</button>
+  <p class="callout" id="note">The file is decrypted on the server using the key in this link's
+     <code>#</code> fragment. That key is never stored on the server.</p>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='share.js') }}"></script>{% endblock %}

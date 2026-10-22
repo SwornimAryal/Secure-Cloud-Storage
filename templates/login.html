@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sign in - Secure Cloud Storage{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Welcome back</h2>
+  <form method="post" autocomplete="on">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label class="field">Username
+      <input type="text" name="username" required autofocus autocomplete="username">
+    </label>
+    <label class="field">Password
+      <span class="input-row">
+        <input type="password" id="pw" name="password" required autocomplete="current-password">
+        <button type="button" class="btn ghost sm" data-reveal="pw">Show</button>
+      </span>
+    </label>
+    <button type="submit" class="btn primary block">Sign in</button>
+  </form>
+  <p class="muted center">No account? <a href="{{ url_for('register') }}">Create one</a></p>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='auth.js') }}"></script>{% endblock %}

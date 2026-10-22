@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>My files - Secure Cloud Storage</title>
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%234c8dff%27/%3E%3Crect x=%279%27 y=%2715%27 width=%2714%27 height=%2710%27 rx=%272%27 fill=%27white%27/%3E%3Cpath d=%27M12 15v-3a4 4 0 0 1 8 0v3%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272.4%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="app-body">
+<div id="app" class="app" data-csrf="{{ csrf_token() }}" data-username="{{ username }}">
+
+  <aside class="sidebar">
+    <div class="side-brand"><span class="logo sm">&#128274;</span> Secure Storage</div>
+    <nav class="side-nav" id="nav" aria-label="Sections"></nav>
+
+    <div class="usage" id="usage">
+      <div class="meter"><span id="meterFill"></span></div>
+      <p class="muted" id="usageText">&nbsp;</p>
+    </div>
+
+    <div class="side-foot">
+      <div class="user-chip"><span class="avatar" id="avatar"></span><span class="uname" id="uname"></span></div>
+      <div class="side-actions">
+        <button class="icon-btn" data-theme-toggle type="button" title="Toggle theme" aria-label="Toggle theme" id="themeBtn"></button>
+        <a class="icon-btn" href="{{ url_for('change_password') }}" title="Change password" aria-label="Change password" id="pwBtn"></a>
+        <form method="post" action="{{ url_for('logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="icon-btn" type="submit" title="Sign out" aria-label="Sign out" id="outBtn"></button>
+        </form>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="toolbar">
+      <h1 id="viewTitle">My files</h1>
+      <div class="tools" id="fileTools">
+        <input type="search" id="search" placeholder="Search files   ( / )" aria-label="Search files" autocomplete="off">
+        <select id="sort" aria-label="Sort files">
+          <option value="new">Newest</option>
+          <option value="old">Oldest</option>
+          <option value="name">Name A&ndash;Z</option>
+          <option value="size">Largest</option>
+        </select>
+        <button class="btn primary" type="button" id="uploadBtn"></button>
+        <input type="file" id="fileInput" multiple hidden>
+      </div>
+    </header>
+    <section id="content" class="content" aria-live="polite"></section>
+    <p class="muted foot-note">Max {{ max_mb }} MB per file. Everything is encrypted with AES-256-GCM before it is stored.</p>
+  </main>
+
+  <div id="dropOverlay" class="drop-overlay" hidden><div>Drop files to encrypt &amp; upload</div></div>
+  <div id="uploads" class="uploads" hidden></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <div id="flashes" hidden>{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<span data-kind="{{ category }}">{{ message }}</span>{% endfor %}{% endwith %}</div>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

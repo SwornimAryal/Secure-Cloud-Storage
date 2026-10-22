@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Create account - Secure Cloud Storage{% endblock %}
+{% block content %}
+<section class="card auth-card">
+  <h2>Create your vault</h2>
+  <form method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label class="field">Username
+      <input type="text" name="username" required autofocus autocomplete="username"
+             pattern="[A-Za-z0-9_.\-]{3,32}" title="3-32 letters, digits, dot, dash or underscore">
+    </label>
+    <label class="field">Password <span class="hint">min {{ min_len }} characters</span>
+      <span class="input-row">
+        <input type="password" id="pw" name="password" required minlength="{{ min_len }}"
+               autocomplete="new-password" data-strength="meter">
+        <button type="button" class="btn ghost sm" data-reveal="pw,pw2">Show</button>
+      </span>
+      <span class="strength" id="meter" data-level="-1"><span></span><small></small></span>
+    </label>
+    <label class="field">Confirm password
+      <input type="password" id="pw2" name="confirm" required minlength="{{ min_len }}" autocomplete="new-password">
+    </label>
+    <button type="submit" class="btn primary block">Create account</button>
+  </form>
+  <p class="callout warn"><strong>No recovery.</strong> Your password protects your encryption keys.
+     If you forget it, your files cannot be recovered.</p>
+  <p class="muted center">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='auth.js') }}"></script>{% endblock %}
