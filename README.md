@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Secure Cloud Storage
 
 An encrypted file vault in Python (Flask) with a single-page dashboard.
@@ -201,3 +202,6 @@ Know before real use:
 TOTP two-factor login, recipient-specific sharing with public keys, file
 versions, folders, virus scanning hook, background key-rotation job,
 browser-side (WebCrypto) encryption for true E2EE.
+=======
+# Secure-Cloud-Storage
+>>>>>>> a096e0f4aa7b01a69bb2df0d5b357551d56b3320
